@@ -10,4 +10,6 @@ void adjust_brightness(const uint8_t* restrict src, uint8_t* restrict dest, int 
 
 void rgb_to_gray(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
 
+void histogram_eq(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
+
 #endif

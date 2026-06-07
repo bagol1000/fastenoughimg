@@ -1,0 +1,19 @@
+[project]
+name = "fastenoughimg"
+description = "A package for image processing"
+version = "0.0.1"
+authors = [
+    { name="bagol1000", email="adbag2222@gmail.com" },
+]
+license = "GPL-3.0-or-later"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0.0",
+]
+
+[build-system]
+requires = [
+    "numpy>=2.0.0",
+    "setuptools",
+    "Cython"
+]
