@@ -116,11 +116,9 @@ int threshold_otsu(const uint8_t* restrict src, uint8_t* restrict dest, int widt
             var = v;
             treshold = tr;
         }
-
-    for (int i = 0; i < n; i++) dest[i] = src[i] > treshold ? 255 : 0;
-
-    return treshold;
     }
+    for (int i = 0; i < n; i++) dest[i] = src[i] > treshold ? 255 : 0;
+    return treshold;
 }
 
 //detekcja krawedzi metoda Sobela
