@@ -12,4 +12,14 @@ void rgb_to_gray(const uint8_t* restrict src, uint8_t* restrict dest, int width,
 
 void histogram_eq(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
 
+int threshold_otsu(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
+
+void edge_detect(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
+
+void convolve(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height, const float* restrict kernel, int k_width, int k_height);
+
+void sharpen(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height);
+
+void blur_gauss(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height, double sigma);
+
 #endif
