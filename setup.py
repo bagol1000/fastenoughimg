@@ -8,7 +8,8 @@ setuptools.setup(
     name="fastenoughimg",
     packages=setuptools.find_packages(),
     include_dirs=[numpy_include_path],
-    #extra_compile_args=["-O3", "-DNDEBUG=1"],
+    extra_compile_args=["-O3", "-march=native", "-fopenmp"],
+    extra_link_args=["-lgomp", "-lm"],
     ext_modules=[
         cythonize("fastenoughimg/fastenoughimg.pyx", language_level = 3,),
     ]
