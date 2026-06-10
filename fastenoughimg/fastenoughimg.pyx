@@ -33,7 +33,8 @@ def pyinvert(np.ndarray[np.uint8_t, ndim = 3] img):
 def pyadjust_brightness(np.ndarray[np.uint8_t, ndim = 3] img, int delta):
     img = np.ascontiguousarray(img)
     cdef np.ndarray[np.uint8_t, ndim = 3] out = np.empty((img.shape[0], img.shape[1], img.shape[2]), dtype = np.uint8)
-    adjust_brightness(<uint8_t*> img.data, <uint8_t*> out.data, img.shape[1], img.shape[0], img.shape[2], delta)
+    with nogil:
+        adjust_brightness(<uint8_t*> img.data, <uint8_t*> out.data, img.shape[1], img.shape[0], img.shape[2], delta)
     return out
 
 def pyrgb_to_gray(np.ndarray[np.uint8_t, ndim = 3] img):
@@ -65,6 +66,8 @@ def pyedge_detect(np.ndarray[np.uint8_t, ndim = 2] img):
     return out
 
 def pyconvolve(np.ndarray[np.uint8_t, ndim = 2] img, np.ndarray[np.float32_t, ndim = 2] kernel):
+    if kernel.shape[0] > img.shape[0] or kernel.shape[1] > img.shape[1]:
+        raise ValueError("the kernel must not be larger than the image in any direction")
     img = np.ascontiguousarray(img)
     kernel = np.ascontiguousarray(kernel)
     cdef np.ndarray[np.uint8_t, ndim = 2] out = np.empty((img.shape[0], img.shape[1]), dtype = np.uint8)
@@ -80,6 +83,8 @@ def pysharpen(np.ndarray[np.uint8_t, ndim = 2] img):
     return out
 
 def pyblur_gauss(np.ndarray[np.uint8_t, ndim = 2] img, double sigma):
+    if sigma <= 0:
+        raise ValueError("sigma value must be positive")
     img = np.ascontiguousarray(img)
     cdef np.ndarray[np.uint8_t, ndim = 2] out = np.empty((img.shape[0], img.shape[1]), dtype = np.uint8)
     with nogil:
