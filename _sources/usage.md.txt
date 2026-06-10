@@ -30,7 +30,7 @@ with_detected_edges = fimg.pyedge_detect(gray)
 
 **Invert**
 
-![inverted](_static/jezioro_negatyw.png)
+![inverted](_static/jezioro_invert.png)
 
 **Gaussian blur** `(sigma=20)`
 
