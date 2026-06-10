@@ -71,10 +71,9 @@ static void transpose(const float* restrict src, float* restrict out, int width,
 }
 //////////////////////////////////////////////////////////////////////////////////
 
-//negatyw obrazu'
+//negatyw obrazu
 void invert(const uint8_t* restrict src, uint8_t* restrict dest, int width, int height, int channels){
     int n = width * height * channels;
-    #pragma omp parallel for schedule(static)
     for (int i = 0; i < n; i++) dest[i] = 255 - src[i];
 }
 
@@ -184,6 +183,7 @@ int threshold_otsu(const uint8_t* restrict src, uint8_t* restrict dest, int widt
             threshold = tr;
         }
     }
+
     for (int i = 0; i < n; i++) dest[i] = src[i] > threshold ? 255 : 0;
     return threshold;
 }

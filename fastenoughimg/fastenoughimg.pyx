@@ -26,8 +26,7 @@ cdef extern from "../src/fastenoughimg.h":
 def pyinvert(np.ndarray[np.uint8_t, ndim = 3] img):
     img = np.ascontiguousarray(img)
     cdef np.ndarray[np.uint8_t, ndim = 3] out = np.empty((img.shape[0], img.shape[1], img.shape[2]), dtype = np.uint8)
-    with nogil:
-        invert(<uint8_t*> img.data, <uint8_t*> out.data, img.shape[1], img.shape[0], img.shape[2])
+    invert(<uint8_t*> img.data, <uint8_t*> out.data, img.shape[1], img.shape[0], img.shape[2])
     return out
 
 def pyadjust_brightness(np.ndarray[np.uint8_t, ndim = 3] img, int delta):
