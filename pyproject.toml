@@ -1,7 +1,7 @@
 [project]
 name = "fastenoughimg"
 description = "A package for image processing"
-version = "0.0.1"
+version = "0.1.3"
 authors = [
     { name="bagol1000", email="adbag2222@gmail.com" },
 ]
