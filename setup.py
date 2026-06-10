@@ -1,16 +1,24 @@
 import setuptools
 import numpy as np
 from Cython.Build import cythonize
+import platform
 
-numpy_include_path = np.get_include()
+if platform.system() == 'Darwin': #macOS
+    extra_compile_args = ["-O3", "-Xpreprocessor", "-fopenmp"]
+    extra_link_args = ["-lomp", "-lm"]
+else:
+    extra_compile_args = ["-O3", "-march=native", "-fopenmp"]
+    extra_link_args = ["-lgomp", "-lm"]
 
-setuptools.setup(
+ext = setuptools.Extension(
+    "fastenoughimg.fastenoughimg", sources=["fastenoughimg/fastenoughimg.pyx", "src/fastenoughimg.c"],
+    include_dirs=[np.get_include()],
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args,
+)
+
+setuptools.setup(   
     name="fastenoughimg",
     packages=setuptools.find_packages(),
-    ext_modules=
-        cythonize(setuptools.Extension("fastenoughimg.fastenoughimg", sources=["fastenoughimg/fastenoughimg.pyx", "src/fastenoughimg.c"],
-        include_dirs=[numpy_include_path],
-        extra_compile_args=["-O3", "-march=native", "-fopenmp"],
-        extra_link_args=["-lgomp", "-lm"],),
-        language_level = 3,),
+    ext_modules=cythonize([ext], language_level=3),
 )

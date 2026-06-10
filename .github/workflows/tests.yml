@@ -10,6 +10,7 @@
     test:
       runs-on: ${{ matrix.os }}
       strategy:
+        fail-fast: false
         matrix:
           os: [ubuntu-latest, windows-latest, macos-latest]
 
@@ -20,6 +21,10 @@
           uses: actions/setup-python@v5
           with:
             python-version: "3.12"
+        
+        - name: Install libomp
+          if: runner.os == 'macOS'
+          run: brew install libomp
 
         - name: Install dependencies
           run: pip install -e .
